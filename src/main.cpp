@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "../include/helpers.hpp"
-#include "../include/InversionCounter.hpp"
+#include "../src/InversionCounter.hpp"
 
 namespace algsprocesses {
 	//implement helper functions here
@@ -26,8 +26,13 @@ namespace algsprocesses {
 
 int main() {
 	using namespace algsprocesses;
-	const vector<int> numbers = arrayFileToVectorInt("../numbers.txt");
-	int inversions = InversionCounter<int>().count(numbers, numbers.size());
-	cout << inversions;
+	cout << "QWERYT";
+	const vector<int> numbers = arrayFileToVectorInt("../../numbers.txt");
+	//const vector<int> numbers = vector<int>{};
+	const int a = numbers.size();
+	//int inversions = InversionCounter<int>().count(numbers, a);
+	//cout << inversions;
+	InversionCounter<int> IC = InversionCounter<int>{};
+	cout <<	IC.count(numbers,a);
 	return 0;
 }
