@@ -3,7 +3,7 @@
 namespace algsprocesses {
 
  	template <typename T>
-	int InversionCounter::count(const std::vector<T>& vec, const int vecSize){
+	int InversionCounter<T>::count(const std::vector<T>& vec, const int vecSize){
 		if (vecSize == 1) return 0;
 		else {
 			//use STL to pass in appropriate vector
@@ -15,7 +15,7 @@ namespace algsprocesses {
 	}
 
 	template <typename T>
-	int InversionCounter::countSplitInv(const std::vector<T>& vec, const int vecSize){
+	int InversionCounter<T>::countSplitInv(const std::vector<T>& vec, const int vecSize){
 		std::vector<T> firstHalf(vec.begin(), vec.begin()+vecSize/2);
 		std::vector<T> secondHalf(vec.begin()+vecSize/2+1, vec.end());
 		//the old way...
@@ -26,7 +26,7 @@ namespace algsprocesses {
 				f++;
 			} else if (secondHalf[s] < firstHalf[f]) {
 				inversions += firstHalf.size() - f;
-				s++
+				s++;
 			}
 		}
 		return inversions;

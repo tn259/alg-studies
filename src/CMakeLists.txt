@@ -1,2 +1,3 @@
-add_executable(main main.cpp) #SocketHandler.cpp)
+add_library(InversionCounter InversionCounter.cpp)
+add_executable(main main.cpp) 
 

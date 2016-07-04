@@ -25,6 +25,9 @@ namespace algsprocesses {
 }
 
 int main() {
-
+	using namespace algsprocesses;
+	const vector<int> numbers = arrayFileToVectorInt("../numbers.txt");
+	int inversions = InversionCounter<int>().count(numbers, numbers.size());
+	cout << inversions;
 	return 0;
 }
