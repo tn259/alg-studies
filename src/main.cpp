@@ -1,3 +1,5 @@
+#include <fstream>
+#include <iostream>
 #include "../include/helpers.hpp"
 #include "../include/InversionCounter.hpp"
 
@@ -5,7 +7,7 @@ namespace algsprocesses {
 	//implement helper functions here
 	const vector<int> arrayFileToVectorInt(const string& filename){
 		string line;
-		ifstream file (filename);
+		fstream file (filename.c_str());
 		vector<int> intVector;
 		if(file.is_open()) {
 			while (getline(file, line)) {
@@ -16,10 +18,13 @@ namespace algsprocesses {
 		} else {
 			cout << "Cannot open file";	
 		}
-		return intVec;	
+		return intVector;	
 	}	
 
 	
 }
 
-int main() {}
+int main() {
+
+	return 0;
+}

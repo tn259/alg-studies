@@ -5,9 +5,9 @@ namespace algsprocesses {
 template <typename T>
 class InversionCounter {
 	public:
-		int count(const vector<T>&, const int);
+		int count(const std::vector<T>&, const int);
 	private:	
-		int countSplitInv(const vector<T>&, const int);
+		int countSplitInv(const std::vector<T>&, const int);
 };
 
 }
