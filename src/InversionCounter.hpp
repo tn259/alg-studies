@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 
 /*Template definition need to be provided in header*/
 
@@ -12,23 +13,23 @@ class InversionCounter {
 			else {
 				//use STL to pass in appropriate vector
 				typename std::vector<T> firstHalf(vec.begin(), vec.begin()+vecSize/2); 
-				int x = count(firstHalf, vecSize/2);
-				typename std::vector<T> secondHalf(vec.begin()+vecSize/2+1, vec.end());
-				int y = count(secondHalf , vecSize/2);
-				int z = countSplitInv(vec, vecSize);
+				int x = count(firstHalf, firstHalf.size());
+				typename std::vector<T> secondHalf(vec.begin()+vecSize/2, vec.end());
+				int y = count(secondHalf, secondHalf.size());
+				int z = countSplitInv(vec, vec.size());
 				return x+y+z;
 			}
 		}	 
 	private:	
 		int countSplitInv(const std::vector<T>& vec, const int vecSize) {
-			//core dump happening here....
 			typename std::vector<T> firstHalf(vec.begin(), vec.begin()+vecSize/2);
-			typename std::vector<T> secondHalf(vec.begin()+vecSize/2+1, vec.end());
+			typename std::vector<T> secondHalf(vec.begin()+vecSize/2, vec.end());
 			//the old way...
-			int f, s, inversions = 0;
+			int f = 0, s = 0, inversions = 0;
 			for (int i = 0; i<vecSize; i++) {
+				//assume elements all distinct
 				if(firstHalf[f] < secondHalf[s]) {
-				//merge..
+				//piggyback on merge step..
 				f++;
 				} else if (secondHalf[s] < firstHalf[f]) {
 					inversions += firstHalf.size() - f;
@@ -37,7 +38,7 @@ class InversionCounter {
 			}
 			return inversions;
 		}
-			
 };
+
 
 }

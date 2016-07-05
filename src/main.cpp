@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 #include "../include/helpers.hpp"
 #include "../src/InversionCounter.hpp"
 
@@ -20,19 +21,16 @@ namespace algsprocesses {
 		}
 		return intVector;	
 	}	
-
 	
+	void print(int n) { cout << " " << n << "\n"; }	
 }
 
 int main() {
 	using namespace algsprocesses;
-	cout << "QWERYT";
 	const vector<int> numbers = arrayFileToVectorInt("../../numbers.txt");
-	//const vector<int> numbers = vector<int>{};
-	const int a = numbers.size();
-	//int inversions = InversionCounter<int>().count(numbers, a);
-	//cout << inversions;
+	//sanity check vector creation
+	for_each(numbers.begin(), numbers.end(), print);
 	InversionCounter<int> IC = InversionCounter<int>{};
-	cout <<	IC.count(numbers,a);
+	cout <<	IC.count(numbers,numbers.size());
 	return 0;
 }
