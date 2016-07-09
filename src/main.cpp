@@ -31,6 +31,6 @@ int main() {
 	//sanity check vector creation
 	for_each(numbers.begin(), numbers.end(), print);
 	InversionCounter<int> IC = InversionCounter<int>{};
-	cout <<	IC.count(numbers,numbers.size());
+	cout <<	IC.countAllInv(numbers);
 	return 0;
 }
