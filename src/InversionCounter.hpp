@@ -9,44 +9,41 @@ namespace algsprocesses {
 
 template <typename T>
 class InversionCounter {
+	typedef typename std::vector<T> Vector;
 	typedef typename std::vector<T>::iterator It;
 	public:
-		const int countAllInv(const std::vector<T>& vec) {
-			typename std::vector<T> vecCopy(vec);
-			typename std::vector<T>::iterator b = vecCopy.begin();
-			typename std::vector<T>::iterator e = vecCopy.end();
-			//return (*this).count(vecCopy, b, e, vecCopy.size());
-			int n =  (*this).count(vecCopy, b, e, std::distance(b,e));
-			for(int i = 0; i<vecCopy.size(); i++) std::cout << vecCopy[i] << "\n";
-			return n;
+		const int countAllInv(const Vector& vec) {
+			Vector vecCopy(vec);
+			It b = vecCopy.begin();
+			It e = vecCopy.end();
+			return (*this).count(vecCopy, b, e, std::distance(b, e));
 
 		} 
 	private:
-		int count(std::vector<T>& vec, It b, It e, const int vecSize) {
+		int count(Vector& vec, It b, It e, const int vecSize) {
 			if (vecSize == 1) return 0;
 			else {
 				//use STL to pass in appropriate vector
-				int x = count(vec, b, b+vecSize/2, vecSize/2);
-				int y = count(vec, b+vecSize/2, e, vecSize/2);
+				int x = count(vec, b, b+vecSize/2, std::distance(b, b+vecSize/2));
+				int y = count(vec, b+vecSize/2, e, std::distance(b+vecSize/2, e));
 				int z = countSplitInv(vec, b, e, std::distance(b,e));
 				return x+y+z;
 			}
 		}	
-		int countSplitInv(std::vector<T>& vec, It b, It e,const int vecSize) {
-			typename std::vector<T> firstHalf(b, b+vecSize/2);
-			typename std::vector<T> secondHalf(b+vecSize/2, e);
+		int countSplitInv(Vector& vec, It b, It e,const int vecSize) {
+			Vector firstHalf(b, b+vecSize/2);
+			Vector secondHalf(b+vecSize/2, e);
+			int firstSize = firstHalf.size(), secondSize = secondHalf.size();
 			//the old way...
-			std::cout << "first size= " << firstHalf.size() << "  second size= " << secondHalf.size() << "\n";
-			std::cout << "first[0]= " << firstHalf[0] << " second[0]= " << secondHalf[0] << "\n";
 			int f = 0, s = 0, inversions = 0;
 			for (int i = 0; i<vecSize; i++) {
 				//assume elements all distinct
-				if(f==firstHalf.size() && s==secondHalf.size()) {
+				if(f==firstSize && s==secondSize) {
 					break;
-				} else if (f==firstHalf.size()) {
+				} else if (f==firstSize) {
 					*b = secondHalf[s];
 					s++;
-				} else if (s==secondHalf.size()) {
+				} else if (s==secondSize) {
 					*b = firstHalf[f];
 					f++;
 				} else if(firstHalf[f] < secondHalf[s]) {
@@ -54,17 +51,12 @@ class InversionCounter {
 					*b = firstHalf[f];
 					f++;
 				} else if (secondHalf[s] < firstHalf[f]) {
-					inversions += firstHalf.size() - f;
+					inversions += firstSize - f;
 					*b = secondHalf[s];
 					s++;
 				}
 				b++;
-				//std::cout << "f=" << f << " s=" << s << "\n";
-				//std::cout << "firstHalf[f]= " << firstHalf[f] << " secondHalf[s] = " << secondHalf[s] << "\n";
 			}
-		//	std::cout << inversions << "  ";
-			for(int i = 0; i<vec.size(); i++) std::cout << vec[i] << "\n";
-			std::cout << "\n";
 			return inversions;
 		}
 };

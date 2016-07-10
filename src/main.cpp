@@ -22,7 +22,7 @@ namespace algsprocesses {
 		return intVector;	
 	}	
 	
-	void print(int n) { cout << " " << n << "\n"; }	
+	void print(const int n) { cout << " " << n << "\n"; }	
 }
 
 int main() {
@@ -30,7 +30,6 @@ int main() {
 	const vector<int> numbers = arrayFileToVectorInt("../../numbers.txt");
 	//sanity check vector creation
 	for_each(numbers.begin(), numbers.end(), print);
-	InversionCounter<int> IC = InversionCounter<int>{};
-	cout <<	IC.countAllInv(numbers);
+	cout << InversionCounter<int>{}.countAllInv(numbers);
 	return 0;
 }
