@@ -21,15 +21,14 @@ namespace algsprocesses {
 		}
 		return intVector;	
 	}	
-	
 	void print(const int n) { cout << " " << n << "\n"; }	
 }
 
 int main() {
 	using namespace algsprocesses;
-	const vector<int> numbers = arrayFileToVectorInt("../../numbers.txt");
+	const vector<int> numbers = arrayFileToVectorInt("../../IntegerArray.txt");
 	//sanity check vector creation
-	for_each(numbers.begin(), numbers.end(), print);
+	//for_each(numbers.begin(), numbers.end(), print);
 	cout << InversionCounter<int>{}.countAllInv(numbers);
 	return 0;
 }

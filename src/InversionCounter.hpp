@@ -11,8 +11,9 @@ template <typename T>
 class InversionCounter {
 	typedef typename std::vector<T> Vector;
 	typedef typename std::vector<T>::iterator It;
+	typedef unsigned long long num;
 	public:
-		const int countAllInv(const Vector& vec) {
+		const num countAllInv(const Vector& vec) {
 			Vector vecCopy(vec);
 			It b = vecCopy.begin();
 			It e = vecCopy.end();
@@ -20,22 +21,23 @@ class InversionCounter {
 
 		} 
 	private:
-		int count(Vector& vec, It b, It e, const int vecSize) {
+		num count(Vector& vec, It b, It e, const int vecSize) {
 			if (vecSize == 1) return 0;
 			else {
 				//use STL to pass in appropriate vector
-				int x = count(vec, b, b+vecSize/2, std::distance(b, b+vecSize/2));
-				int y = count(vec, b+vecSize/2, e, std::distance(b+vecSize/2, e));
-				int z = countSplitInv(vec, b, e, std::distance(b,e));
+				num x = count(vec, b, b+vecSize/2, std::distance(b, b+vecSize/2));
+				num y = count(vec, b+vecSize/2, e, std::distance(b+vecSize/2, e));
+				num z = countSplitInv(vec, b, e, std::distance(b,e));
 				return x+y+z;
 			}
 		}	
-		int countSplitInv(Vector& vec, It b, It e,const int vecSize) {
+		num countSplitInv(Vector& vec, It b, It e,const int vecSize) {
 			Vector firstHalf(b, b+vecSize/2);
 			Vector secondHalf(b+vecSize/2, e);
 			int firstSize = firstHalf.size(), secondSize = secondHalf.size();
 			//the old way...
-			int f = 0, s = 0, inversions = 0;
+			int f = 0, s = 0;
+			num inversions = 0;
 			for (int i = 0; i<vecSize; i++) {
 				//assume elements all distinct
 				if(f==firstSize && s==secondSize) {
