@@ -13,17 +13,25 @@ class QuickSortComparisonCounter {
 	typedef typename std::vector<T>::iterator It;
 	typedef unsigned long long num;
 	public:
-		const num countComparisons(const Vector v) {
+		const num countComparisons(const Vector& v) {
 			num comparisons = 0;
 			Vector vecCopy(v);
+			for(int i=0; i<vecCopy.size(); i++) { cout << vecCopy[i] << " ";}
+			std::cout << "\n";
 			return (*this).sort(vecCopy, vecCopy.begin(), vecCopy.end(), vecCopy.size(), comparisons);
 		}	
 	private:
-		const num sort(Vector& v, It b, It e, const int vecSize, num comparisons) {
-			if (vecSize == 1) return comparisons;
+		const num sort(Vector& v, It b, It e, const int vecSize, num& comparisons) {
+			if (vecSize < 2) return comparisons;
 			choosePivot(v, b, vecSize);
-			It pivot = partition(v, b, e-1); //left and right iterators inclusive
+			It pivot = partition(v, b, e); 
+		//	for(int i=0; i<v.size(); i++) { cout << v[i] << " "; }
 			comparisons += vecSize - 1; //pivot compared against all others
+			std::cout << "comps= " << comparisons << "\n";
+			std::cout << "\n" << std::distance(b, e) << "\n";
+		//	std::cout << "b= " << *b << "  pivot= " << *pivot << "\n";
+		//	std::cout << "pivot+1= " << *(pivot+1) << " e= " << *e << "\n";
+
 			sort(v, b, pivot, std::distance(b, pivot), comparisons); //everything before pivot
 			sort(v, pivot+1, e, std::distance(pivot+1, e), comparisons); //everything after pivot
 			//
@@ -35,8 +43,8 @@ class QuickSortComparisonCounter {
 		}	
 		It partition(Vector& v, It left, It right) {
 			It i = left+1;
-			for(It j = left+1; j != right+1; j++) {
-				if (*j < *pivot) {
+			for(It j = left+1; j != right; j++) {
+				if (*j < *left) {
 					std::iter_swap(j,i);
 					i++;
 				}
