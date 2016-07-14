@@ -30,8 +30,10 @@ int main() {
 	const vector<int> numbers = arrayFileToVectorInt("../../IntegerArray.txt");
 	//sanity check vector creation
 	//for_each(numbers.begin(), numbers.end(), print);
-	cout << InversionCounter<int>{}.countAllInv(numbers);
-	const vector<int> numbers2 = arrayFileToVectorInt("../../numbers2.txt");
-	cout << QuickSortComparisonCounter<int>{}.countComparisons(numbers2);
+	cout << "Number of inverions = " << InversionCounter<int>{}.countAllInv(numbers);
+	const vector<int> numbers2 = arrayFileToVectorInt("../../QuickSort.txt");
+	cout << "Number of QS comparisons 1 = " << QuickSortComparisonCounter<int>{}.countComparisons1(numbers2) << "\n";
+	cout << "Number of QS comparisons 2 = " << QuickSortComparisonCounter<int>{}.countComparisons2(numbers2) << "\n";
+	cout << "Number of QS comparisons 3 = " << QuickSortComparisonCounter<int>{}.countComparisons3(numbers2) << "\n";
 	return 0;
 }
